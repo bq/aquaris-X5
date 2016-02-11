@@ -398,11 +398,11 @@ static int ltr559_ps_enable(struct i2c_client *client, int on)
 		if ((psval_lo>=0) && (psval_hi>=0)) {
 			psdata = ((psval_hi & 7) << 8) | psval_lo;
 			if (psdata >= data->platform_data->prox_threshold)		
-				data->ps_state = 0;
+				input_report_abs(data->input_dev_ps, ABS_DISTANCE, 0);
 			else if (psdata <= data->platform_data->prox_hsyteresis_threshold)
-				data->ps_state = 1;
+				input_report_abs(data->input_dev_ps, ABS_DISTANCE, 1);
 
-			input_report_abs(data->input_dev_ps, ABS_DISTANCE, data->ps_state);
+			//input_report_abs(data->input_dev_ps, ABS_DISTANCE, data->ps_state);
 			input_sync(data->input_dev_ps);
 		}
 
@@ -1279,6 +1279,9 @@ static int ltr559_read_ps_value_for_double_tap(void)
 int ltr559_get_ps_value_for_double_tap(void)
 {
 	int tp_double_tap = 1;
+
+	if (!double_tap_data)
+		return 0;
 
 	if (!double_tap_data->ps_open_state) {
 		ltr559_ps_enable(double_tap_data->client,1);
