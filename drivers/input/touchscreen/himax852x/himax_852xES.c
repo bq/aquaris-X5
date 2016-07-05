@@ -906,7 +906,6 @@ static void himax_hw_reset(uint8_t loadconfig, uint8_t int_off)
 }
 #endif
 
-#if 0
 static bool himax_ic_package_check(struct himax_ts_data *ts)
 {
 	uint8_t cmd[3];
@@ -928,7 +927,6 @@ static bool himax_ic_package_check(struct himax_ts_data *ts)
 
 	return true;
 }
-#endif
 
 static void himax_read_tp_info(struct i2c_client *client)
 {
@@ -2391,13 +2389,13 @@ static int himax852xes_probe(struct i2c_client *client, const struct i2c_device_
 	err = himax_gpio_power_config(ts->client, pdata);
 	if (err)
 		goto err_dt_platform_data_fail;
-#if 0
+
 	if (!himax_ic_package_check(ts)) {
 		pr_err("Himax chip is not found !\n");
 		err = -ENOMEM;
 		goto err_ic_gpio_power_failed;
 	}
-#endif
+
 	if (pdata->virtual_key)
 		ts->button = pdata->virtual_key;
 
