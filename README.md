@@ -19,7 +19,7 @@ After it, choose the version you would like to build:
 
         $ mv aquaris-X5 kernel
         $ cd kernel
-        $ git checkout aquaris-X5_4.X
+        $ git checkout aquaris-X5_4.x
 
 At the same level of the "kernel" directory:
 
